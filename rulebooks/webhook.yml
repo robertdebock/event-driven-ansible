@@ -17,18 +17,8 @@
         run_playbook:
           name: playbooks/collect_information.yml
 
-    - name: Force fsck
-      condition: event.payload.action == "force_fsck"
+    - name: Force fsck on boot
+      condition: event.payload.action == "fsck"
       action:
         run_playbook:
           name: playbooks/fsck.yml
-          extra_vars:
-            force: true
-
-    - name: Remove force fsck
-      condition: event.payload.action == "remove_force_fsck"
-      action:
-        run_playbook:
-          name: playbooks/fsck.yml
-          extra_vars:
-            force: false

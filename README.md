@@ -31,13 +31,5 @@ curl -X POST http://localhost:5000 \
 ```bash
 curl -X POST http://localhost:5000 \
   -H "Content-Type: application/json" \
-  -d '{"action":"force_fsck","hosts":"localhost,other-host.example.com"}'
-```
-
-### Remove forece fsck
-
-```bash
-curl -X POST http://localhost:5000 \
-  -H "Content-Type: application/json" \
-  -d '{"action":"remove_force_fsck","hosts":"localhost,other-host.example.com"}'
+  -d '{"action":"fsck","hosts":"localhost,other-host.example.com"}'
 ```

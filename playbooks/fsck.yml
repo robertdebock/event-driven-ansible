@@ -1,18 +1,15 @@
 ---
 
-- name: Force fsck
+- name: Force fsck at boot
   hosts: all
   gather_facts: false
-  become: yes
-
-  vars:
-    _state:
-      true: file
-      false: absent
-    state: "{{ _state[force] }}"
+  become: true
 
   tasks:
-    - name: Manage /forcefsck
-      ansible.builtin.file:
-        path: /forcefsck
-        state: "{{ state }}"
+    - name: Place /forcefsck
+      ansible.builtin.copy:
+        dest: /forcefsck
+        content: ""
+        owner: root
+        group: root
+        mode: '0644'
