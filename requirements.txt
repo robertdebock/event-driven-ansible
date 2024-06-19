@@ -1,0 +1,4 @@
+ansible
+ansible-runner
+ansible-rulebook
+psycopg[binary,pool]
