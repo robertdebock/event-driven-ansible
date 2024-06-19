@@ -6,11 +6,29 @@
     - ansible.eda.webhook:
         host: 0.0.0.0
         port: 5000
+      filters:
+      - ansible.eda.insert_hosts_to_meta:
+          host_path: "payload.hosts"
 
   rules:
-    - name: Say Hello
-      condition: event.payload.message == "ALERT"
+    - name: Collect information
+      condition: event.payload.action == "collect_information"
       action:
         run_playbook:
-          name: remediate.yml
+          name: playbooks/collect_information.yml
 
+    - name: Force fsck
+      condition: event.payload.action == "force_fsck"
+      action:
+        run_playbook:
+          name: playbooks/fsck.yml
+          extra_vars:
+            force: true
+
+    - name: Remove force fsck
+      condition: event.payload.action == "remove_force_fsck"
+      action:
+        run_playbook:
+          name: playbooks/fsck.yml
+          extra_vars:
+            force: false

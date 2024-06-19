@@ -1,0 +1,18 @@
+---
+
+- name: Force fsck
+  hosts: all
+  gather_facts: false
+  become: yes
+
+  vars:
+    _state:
+      true: file
+      false: absent
+    state: "{{ _state[force] }}"
+
+  tasks:
+    - name: Manage /forcefsck
+      ansible.builtin.file:
+        path: /forcefsck
+        state: "{{ state }}"

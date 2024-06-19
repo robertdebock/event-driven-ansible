@@ -1,0 +1,2 @@
+localhost
+other-host.example.com ansible_host=95.217.235.42 ansible_user=robertdb

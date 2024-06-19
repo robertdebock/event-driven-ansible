@@ -1,0 +1,32 @@
+---
+
+- name: Collection information
+  hosts: all
+  become: false
+  gather_facts: true
+
+  tasks:
+    - name: Show interesting facts
+      ansible.builtin.debug:
+        msg:
+          - "{{ ansible_distribution }} {{ ansible_distribution_major_version }}"
+          - "memory used: {{ (ansible_memory_mb.real.used / ansible_memory_mb.real.total * 100) | round(1) }}%"
+
+    - name: Show ansible_mounts block usage
+      ansible.builtin.debug:
+        msg:
+          - "{{ item.mount }} {{ (item.block_used / item.block_total * 100) | round(1) }}%"
+      loop: "{{ ansible_mounts }}"
+      loop_control:
+        label: "{{ item.mount }}"
+
+    - name: Show ansible_mounts inode usage
+      ansible.builtin.debug:
+        msg:
+          - "{{ item.mount }} {{ (item.inodes_used /item.inodes_total * 100) | round(1) }}%"
+      when:
+        - item.inodes_used is defined
+        - item.indoes_total is defined
+      loop: "{{ ansible_mounts }}"
+      loop_control:
+        label: "{{ item.mount }}"
