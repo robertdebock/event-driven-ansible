@@ -14,11 +14,14 @@
     - name: Collect information
       condition: event.payload.action == "collect_information"
       action:
-        run_playbook:
-          name: playbooks/collect_information.yml
+        # run_playbook:
+        #   name: playbooks/collect_information.yml
+        run_job_template:
+          name: "event-driven-ansible (collect_information)"
+          organization: "Default"
 
-    - name: Force fsck on boot
-      condition: event.payload.action == "fsck"
-      action:
-        run_playbook:
-          name: playbooks/fsck.yml
+      # - name: Force fsck on boot
+      #   condition: event.payload.action == "fsck"
+      #   action:
+      #     run_playbook:
+      #       name: playbooks/fsck.yml
