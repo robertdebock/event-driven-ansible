@@ -9,6 +9,10 @@
       filters:
       - ansible.eda.insert_hosts_to_meta:
           host_path: "payload.hosts"
+    - ansible.eda.url_check:
+        urls:
+          - https://robertdebock.nl
+        delay: 10
 
   rules:
     - name: Collect information
@@ -20,8 +24,9 @@
           name: "event-driven-ansible (collect_information)"
           organization: "Default"
 
-      # - name: Force fsck on boot
-      #   condition: event.payload.action == "fsck"
-      #   action:
-      #     run_playbook:
-      #       name: playbooks/fsck.yml
+    - name: All good
+      condition: event.url_check.status == "up"
+      action:
+        run_job_template:
+          name: "event-driven-ansible (all_good)"
+          organization: "Default"
