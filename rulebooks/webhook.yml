@@ -6,11 +6,22 @@
     - ansible.eda.webhook:
         host: 0.0.0.0
         port: 5000
+      filters:
+      - ansible.eda.insert_hosts_to_meta:
+          host_path: "payload.hosts"
 
   rules:
-    - name: Say Hello
-      condition: event.payload.message == "ALERT"
+    - name: Collect information
+      condition: event.payload.action == "collect_information"
       action:
-        run_playbook:
-          name: remediate.yml
+        # run_playbook:
+        #   name: playbooks/collect_information.yml
+        run_job_template:
+          name: "event-driven-ansible (collect_information)"
+          organization: "Default"
 
+      # - name: Force fsck on boot
+      #   condition: event.payload.action == "fsck"
+      #   action:
+      #     run_playbook:
+      #       name: playbooks/fsck.yml

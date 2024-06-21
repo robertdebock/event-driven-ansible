@@ -1,0 +1,15 @@
+---
+
+- name: Force fsck at boot
+  hosts: all
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Place /forcefsck
+      ansible.builtin.copy:
+        dest: /forcefsck
+        content: ""
+        owner: root
+        group: root
+        mode: '0644'
