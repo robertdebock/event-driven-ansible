@@ -11,6 +11,8 @@
         msg:
           - "{{ ansible_distribution }} {{ ansible_distribution_major_version }}"
           - "memory used: {{ (ansible_memory_mb.real.used / ansible_memory_mb.real.total * 100) | round(1) }}%"
+          - "swap used: {{ (ansible_memory_mb.swap.used / ansible_memory_mb.swap.total * 100) | round(1) }}%"
+          - "usable memory: {{ ansible_memory_mb.real.used - ansible_memory_mb.nocache.used }}MB"
 
     - name: Show ansible_mounts block usage
       ansible.builtin.debug:
