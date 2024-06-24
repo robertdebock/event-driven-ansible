@@ -12,7 +12,7 @@
     - ansible.eda.url_check:
         urls:
           - https://robertdebock.nl
-        delay: 10
+        delay: 20
 
   rules:
     - name: Collect information
