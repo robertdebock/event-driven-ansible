@@ -13,6 +13,7 @@
           - "memory used: {{ (ansible_memory_mb.real.used / ansible_memory_mb.real.total * 100) | round(1) }}%"
           - "swap used: {{ (ansible_memory_mb.swap.used / ansible_memory_mb.swap.total * 100) | round(1) }}%"
           - "usable memory: {{ ansible_memory_mb.real.used - ansible_memory_mb.nocache.used }}MB"
+          - "system load: {{ ansible_loadavg.1m }}, {{ ansible_loadavg.5m }}, {{ ansible_loadavg.15m }}"
 
     - name: Show ansible_mounts block usage
       ansible.builtin.debug:
