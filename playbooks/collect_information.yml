@@ -9,11 +9,11 @@
     - name: Show interesting facts
       ansible.builtin.debug:
         msg:
-          - "{{ ansible_distribution }} {{ ansible_distribution_major_version }}"
-          - "memory used: {{ (ansible_memory_mb.real.used / ansible_memory_mb.real.total * 100) | round(1) }}%"
-          - "swap used: {{ ansible_memory_mb.swap.used }}MB"
-          - "usable memory: {{ ansible_memory_mb.real.used - ansible_memory_mb.nocache.used }}MB"
-          - "system load: {{ ansible_loadavg['1m'] }}, {{ ansible_loadavg['5m'] }}, {{ ansible_loadavg['15m'] }}"
+          - "Distribution: {{ ansible_distribution }} {{ ansible_distribution_major_version }}"
+          - "Memory used: {{ (ansible_memory_mb.real.used / ansible_memory_mb.real.total * 100) | round(1) }}%"
+          - "Usable memory: {{ ansible_memory_mb.real.used - ansible_memory_mb.nocache.used }}MB"
+          - "Swap used: {{ ansible_memory_mb.swap.used }}MB"
+          - "System load: {{ ansible_loadavg['1m'] }}, {{ ansible_loadavg['5m'] }}, {{ ansible_loadavg['15m'] }}"
 
     - name: Show ansible_mounts block usage
       ansible.builtin.debug:
